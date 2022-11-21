@@ -1,12 +1,13 @@
 
 // változó deklarálás:
-let scores, roundScore, activePlayer;
+let scores, roundScore, lastScore, activePlayer;
 
 function init() {
   // tömb: több értéket is tud tárolni
   // értékadás:
   scores = [0,0];
   roundScore = 0;
+  lastScore=[0,0];
   // az elso jatekos kezd:
   activePlayer = 0;
   // a UI-on a kezdeti értékeket beállítjuk.
@@ -38,26 +39,37 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
 
   // 1. random generator
   let dice = Math.floor(Math.random() * 6) + 1;
+  
 
   // 2. display the result:
   let diceDOM = document.querySelector('.dice');
   diceDOM.style.display = 'block';
   diceDOM.setAttribute('src', 'dice-'+dice+'.png');
 
-  // ha a dice értéke nem egyenlő 1:
-  if (dice !== 1) {
-    // ha a dice értéke nem 1:
-    // a dobott értéket hozzá adjuk a roundScore változóhoz:
-    roundScore = roundScore + dice;
-    // az eredményt megjelenítjük:
-    document.querySelector('#current-'+activePlayer).textContent = roundScore;
-
-    // ha a játékos 1-est dobott
-  } else {
-    // a következő játékos jön
-    nextPlayer();
-  }
+  //ha az előző dobás és jelenlegi dobás is 6-os
   
+  if(lastScore[activePlayer]==6 && dice==6){
+    document.querySelector('#current-'+activePlayer).textContent=0;
+    scores[activePlayer]=0;
+    roundScore=0;
+    lastScore[activePlayer]=0;
+    nextPlayer();
+  } else {
+    // ha a dice értéke nem egyenlő 1:
+    if (dice !== 1) {
+      // ha a dice értéke nem 1:
+      // a dobott értéket hozzá adjuk a roundScore változóhoz:
+      roundScore = roundScore + dice;
+      lastScore[activePlayer] = dice;
+      // az eredményt megjelenítjük:
+      document.querySelector('#current-'+activePlayer).textContent = roundScore;
+
+      // ha a játékos 1-est dobott
+    } else {
+      // a következő játékos jön
+      nextPlayer();
+    }
+  }
 });
 
 // function declaration
