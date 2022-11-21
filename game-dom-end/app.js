@@ -1,6 +1,6 @@
 
 // változó deklarálás:
-let scores, roundScore, lastScore, activePlayer;
+let scores, roundScore, lastScore, maxScore, activePlayer;
 
 function init() {
   // tömb: több értéket is tud tárolni
@@ -8,6 +8,14 @@ function init() {
   scores = [0,0];
   roundScore = 0;
   lastScore=[0,0];
+  maxScore=document.getElementsByTagName('input')[0].value;
+  if(isNaN(maxScore) || maxScore==''){
+    maxScore=100;    
+  }
+  else
+  {
+    maxScore=document.getElementsByTagName('input')[0].value;
+  }
   // az elso jatekos kezd:
   activePlayer = 0;
   // a UI-on a kezdeti értékeket beállítjuk.
@@ -100,7 +108,7 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
   document.querySelector('#score-'+activePlayer).textContent = scores[activePlayer];
 
   // 3. check if player won the game:
-  if ( scores[activePlayer] >= 20 ) {
+  if ( scores[activePlayer] >= maxScore) {
     document.querySelector('.player-'+activePlayer+'-panel').classList.add('winner');
     document.querySelector('.player-'+activePlayer+'-panel').classList.remove('active');
 
