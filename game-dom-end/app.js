@@ -38,17 +38,23 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
 
   // 1. random generator
   let dice = Math.floor(Math.random() * 6) + 1;
+  let dice2 = Math.floor(Math.random() * 6) + 1;
 
   // 2. display the result:
-  let diceDOM = document.querySelector('.dice');
+  let diceDOM = document.querySelector('#dice-1');
   diceDOM.style.display = 'block';
   diceDOM.setAttribute('src', 'dice-'+dice+'.png');
 
+  let diceDOM2 = document.querySelector('#dice-2');
+  diceDOM2.style.display = 'block';
+  diceDOM2.setAttribute('src', 'dice-'+dice2+'.png');
+  
+
   // ha a dice értéke nem egyenlő 1:
-  if (dice !== 1) {
+  if (dice !== 1 && dice2!==1) {
     // ha a dice értéke nem 1:
     // a dobott értéket hozzá adjuk a roundScore változóhoz:
-    roundScore = roundScore + dice;
+    roundScore = roundScore + dice + dice2;
     // az eredményt megjelenítjük:
     document.querySelector('#current-'+activePlayer).textContent = roundScore;
 
